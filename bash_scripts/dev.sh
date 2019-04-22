@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# clear venv if exist
+rm -rf ./venv || true
+
 # 
 # This program created an isolated environment to have all dependencies 
 #
@@ -8,6 +11,7 @@
 PROJECT_FOLDER="$(pwd)"
 
 VENV_DIR=${PROJECT_FOLDER}/./venv
+
 
 # Create virtual environment directory 
 python3 -m venv ./venv
