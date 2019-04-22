@@ -21,6 +21,10 @@ if [ -d "$VENV_DIR" ]; then
     # Upgrade Pip
     pip install --upgrade pip
     python3 --version
+    # Set ENVIRONMENT VAR for this project
+    source env.sh
+    echo 'ENVIRONMENT VAR:'
+    echo 'FLASK_APP: ' $FLASK_APP
 else
     echo ERROR: ./venv it\'s not a valid folder
     exit 1
