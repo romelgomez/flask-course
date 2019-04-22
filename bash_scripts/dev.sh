@@ -30,6 +30,7 @@ if [ -d "$VENV_DIR" ]; then
     echo '.:ENVIRONMENT VAR:.'
     echo 'FLASK_APP: ' $FLASK_APP
     echo 'FLASK_DEBUG: ' $FLASK_DEBUG
+    echo 'FLASK_ENV: ' $FLASK_ENV
 else
     echo ERROR: ./venv it\'s not a valid folder
     exit 1
