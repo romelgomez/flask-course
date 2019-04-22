@@ -1,0 +1,9 @@
+html * {
+    font-family: sans-serif;
+}
+
+img.logo {
+    width: 100px;
+    border-radius: 50%;
+    height: 100px;
+}
