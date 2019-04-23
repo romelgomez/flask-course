@@ -1,8 +1,10 @@
-from flask import Flask, request, make_response, redirect, render_template, session, flash
+from flask import Flask, request, make_response, redirect, render_template, session, flash, url_for
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
 from wtforms.fields import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired
+import unittest
+
 
 
 app = Flask(__name__)
@@ -16,6 +18,12 @@ class LoginForm(FlaskForm):
     username = StringField('Nombre de usuario', validators=[DataRequired()])
     password = PasswordField('Clave', validators=[DataRequired()])
     submit = SubmitField('Enviar')
+
+
+@app.cli.command()
+def test():
+    tests = unittest.TestLoader().discover('tests')
+    unittest.TextTestRunner().run(tests)
 
 
 @app.errorhandler(404)
@@ -53,11 +61,13 @@ def hello():
     }
 
 
+
     if login_form.validate_on_submit():
         username = login_form.username.data
         session['username'] = username
 
         flash('Nombre de usuario regitrado con éxito')
 
+        return redirect(url_for('index'))
 
     return render_template('hello.html', **context)
