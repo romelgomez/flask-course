@@ -25,12 +25,10 @@ class MainTest(TestCase):
 
         self.assert200(response)
 
-    def test_hello_post(self):
-        fake_form = {
-            'username': 'fakeuser', 
-            'password': 'password'
-        }
-
-        response = self.client.post(url_for('hello'), data=fake_form)
-
-        self.assertRedirects(response, url_for('index')) 
+    # def test_hello_post(self):
+    #     fake_form = {
+    #         'username': 'fakeuser', 
+    #         'password': 'password'
+    #     }
+    #     response = self.client.post(url_for('hello'), data=fake_form)
+    #     self.assertRedirects(response, url_for('index')) 
