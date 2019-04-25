@@ -14,11 +14,16 @@ app = create_app()
 todos = ['TODO 1', 'TODO 3' , 'TODO 3']
 
 
+# cli flask command
+# ...................................................
+
 @app.cli.command()
 def test():
     tests = unittest.TestLoader().discover('tests')
     unittest.TextTestRunner().run(tests)
 
+# Error handlers
+# ...................................................
 
 @app.errorhandler(404)
 def not_found(error):
@@ -28,40 +33,25 @@ def not_found(error):
 def internal_server_error(error):
     return render_template('500.html', error=error)
 
+# App Routes
+# ...................................................
 
 @app.route('/')
 def index():
     user_ip = request.remote_addr
     response = make_response(redirect('hello')) 
-    # response.set_cookie('user_ip', user_ip)
     session['user_ip'] = user_ip
     return response
 
-@app.route('/hello', methods=['GET', 'POST'])
+@app.route('/hello', methods=['GET'])
 def hello():
-    # user_ip = request.remote_addr
-    # user_ip = request.cookies.get('user_ip')
     user_ip = session.get('user_ip')
-    # return 'Hello your IP is: {}'.format(user_ip)  
     username = session.get('username')
-
-    login_form = LoginForm()
 
     context = {
         'user_ip':user_ip,
         'todos': todos,
-        'login_form': login_form,
         'username': username,
     }
-
-
-
-    if login_form.validate_on_submit():
-        username = login_form.username.data
-        session['username'] = username
-
-        flash('Nombre de usuario regitrado con éxito')
-
-        return redirect(url_for('index'))
 
     return render_template('hello.html', **context)
